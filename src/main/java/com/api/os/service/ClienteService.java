@@ -27,4 +27,10 @@ public class ClienteService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())); // caso não existir
     }
+
+    // serviço para cadastrar clientes
+    public Cliente inserir(Cliente obj){
+        obj.setId(null); // objeto novo a ser inserido, tem que ser nulo
+        return clienteRepository.save(obj); // método salvar
+    }
 }
