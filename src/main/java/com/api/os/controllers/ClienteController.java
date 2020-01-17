@@ -45,4 +45,11 @@ public class ClienteController {
         return ResponseEntity.created(uri).build();
     }
 
+    //Alterar cliente
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> alterar(@Valid @RequestBody Cliente obj, @PathVariable Integer id){
+        obj.setId(id);
+        obj = clienteService.alterar(obj);
+        return ResponseEntity.noContent().build();
+    }
 }

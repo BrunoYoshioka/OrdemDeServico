@@ -33,4 +33,20 @@ public class ClienteService {
         obj.setId(null); // objeto novo a ser inserido, tem que ser nulo
         return clienteRepository.save(obj); // método salvar
     }
+
+    // alterar cliente
+    public Cliente alterar(Cliente obj){
+        Cliente newObj = buscar(obj.getId()); // Instanciar cliente a partir do banco de dados e reaproveitar do método buscar
+        atualizaDados(newObj,obj);
+        return clienteRepository.save(newObj); // salva o newObj
+    }
+
+    // será tipo private pq ele é metodo auxiliar de dentro da classe, pois não tem motivo de ficar exposto pra fora
+    private void atualizaDados(Cliente newObj, Cliente obj){
+        // Essa variavel newObj que busquei todos os dados do banco irá atualizar para os novos valores fornecidos no obj
+        newObj.setNome(obj.getNome());
+        newObj.setCpf(obj.getCpf());
+        newObj.setFone(obj.getFone());
+        newObj.setEmail(obj.getEmail());
+    }
 }
