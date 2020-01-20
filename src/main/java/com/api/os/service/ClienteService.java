@@ -49,4 +49,10 @@ public class ClienteService {
         newObj.setFone(obj.getFone());
         newObj.setEmail(obj.getEmail());
     }
+
+    // Excluir cliente
+    public void deletar(Integer id){
+        Cliente cliente = buscar(id);
+        clienteRepository.deleteById(id);
+    }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -20,7 +21,8 @@ public class Cliente implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull @Size(min = 5, max = 30)
+    @NotNull(message = "Preenchimento Obrigatório")
+    @Size(min = 5, max = 50, message = "O tamanho de caracteres deve ser de 5 a 50")
     private String nome;
 
     @NotNull

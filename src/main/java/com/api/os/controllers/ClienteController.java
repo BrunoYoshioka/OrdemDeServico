@@ -52,4 +52,11 @@ public class ClienteController {
         obj = clienteService.alterar(obj);
         return ResponseEntity.noContent().build();
     }
+
+    //Deletar Cliente
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deletar(@PathVariable Integer id){
+        clienteService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
