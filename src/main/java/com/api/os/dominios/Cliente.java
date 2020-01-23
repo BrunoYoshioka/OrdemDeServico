@@ -36,6 +36,4 @@ public class Cliente implements Serializable {
     @Email(message = "Email inválido")
     private String email;
 
-    public Cliente(){}
-
 }
