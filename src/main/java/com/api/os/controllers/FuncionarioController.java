@@ -1,17 +1,16 @@
 package com.api.os.controllers;
 
 import com.api.os.dominios.Funcionario;
+import com.api.os.repository.FuncionarioRepository;
 import com.api.os.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/funcionarios")
@@ -19,6 +18,9 @@ public class FuncionarioController {
 
     @Autowired
     private FuncionarioService funcionarioService;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody Funcionario obj){
@@ -28,5 +30,11 @@ public class FuncionarioController {
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<?> Listar(){
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
+        return !funcionarios.isEmpty() ? ResponseEntity.ok(funcionarios) : ResponseEntity.noContent().build();
     }
 }
