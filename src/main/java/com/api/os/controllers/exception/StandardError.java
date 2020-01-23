@@ -1,4 +1,4 @@
-package com.api.os.service.exception;
+package com.api.os.controllers.exception;
 
 import lombok.Getter;
 import lombok.Setter;

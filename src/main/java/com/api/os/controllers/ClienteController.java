@@ -5,11 +5,13 @@ import com.api.os.repository.ClienteRepository;
 import com.api.os.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -22,9 +24,13 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    private final long segundo = 1000;
+
     //mostrar todos os clientes
     @GetMapping
+    @Scheduled(fixedDelay = segundo)
     public ResponseEntity<?> Listar(){
+        System.out.println(LocalDateTime.now());
         List <Cliente> clientes = clienteRepository.findAll();
         return !clientes.isEmpty() ? ResponseEntity.ok(clientes) : ResponseEntity.noContent().build();
     }
@@ -38,10 +44,10 @@ public class ClienteController {
 
     //operação de inserir clientes
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void>insert(@Valid @RequestBody Cliente cliente){
-        cliente = clienteService.inserir(cliente);
+    public ResponseEntity<Void>insert(@Valid @RequestBody Cliente obj){
+        obj = clienteService.inserir(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(cliente.getId()).toUri();
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
