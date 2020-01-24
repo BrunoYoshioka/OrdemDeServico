@@ -38,4 +38,9 @@ public class FuncionarioService {
         newObj.setFone(obj.getFone());
         newObj.setPerfil(newObj.getPerfil()); // No caso quando é Enum
     }
+
+    public void deletar(Integer id){
+        Funcionario funcionario = buscar(id);
+        funcionarioRepository.deleteById(id);
+    }
 }
