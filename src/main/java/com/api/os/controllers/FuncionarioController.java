@@ -43,4 +43,12 @@ public class FuncionarioController {
         Funcionario obj = funcionarioService.buscar(id);
         return ResponseEntity.ok().body(obj);
     }
+
+    // Alterar Funcionario
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> alterar(@Valid @RequestBody Funcionario obj, @PathVariable Integer id){
+        obj.setId(id);
+        obj = funcionarioService.alterar(obj);
+        return ResponseEntity.noContent().build();
+    }
 }

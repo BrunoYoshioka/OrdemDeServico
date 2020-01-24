@@ -1,16 +1,16 @@
 package com.api.os.dominios;
 
 import com.api.os.enums.Perfil;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-
+@Getter @Setter
 @Entity
-@Data
 @EqualsAndHashCode
 public class Funcionario implements Serializable {
     private static final long serialVersionUID = 1L;

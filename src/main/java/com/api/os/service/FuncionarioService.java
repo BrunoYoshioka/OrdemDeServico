@@ -25,4 +25,17 @@ public class FuncionarioService {
                 "Objeto não encontrado! Id: " + id + "Tipo: " + Funcionario.class.getName()
         ));
     }
+
+    public Funcionario alterar(Funcionario obj){
+        Funcionario newObj = buscar(obj.getId());
+        atualizaDados(newObj, obj);
+        return funcionarioRepository.save(newObj);
+    }
+
+    private void atualizaDados(Funcionario newObj, Funcionario obj){
+        newObj.setNome(obj.getNome());
+        newObj.setCargo(obj.getCargo());
+        newObj.setFone(obj.getFone());
+        newObj.setPerfil(newObj.getPerfil()); // No caso quando é Enum
+    }
 }
