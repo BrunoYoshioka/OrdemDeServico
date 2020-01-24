@@ -10,6 +10,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -35,5 +37,8 @@ public class Cliente implements Serializable {
 
     @Email(message = "Email inválido")
     private String email;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<OrdemServico> ordemServicos = new ArrayList<>();
 
 }
