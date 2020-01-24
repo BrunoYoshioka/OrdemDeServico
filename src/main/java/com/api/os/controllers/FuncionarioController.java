@@ -37,4 +37,10 @@ public class FuncionarioController {
         List<Funcionario> funcionarios = funcionarioRepository.findAll();
         return !funcionarios.isEmpty() ? ResponseEntity.ok(funcionarios) : ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> listar(@PathVariable Integer id){
+        Funcionario obj = funcionarioService.buscar(id);
+        return ResponseEntity.ok().body(obj);
+    }
 }
