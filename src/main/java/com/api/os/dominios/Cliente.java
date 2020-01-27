@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "cliente")
-@Getter
-@Setter
+@Getter @Setter
 @EqualsAndHashCode
 @ClienteAnnotation
 public class Cliente implements Serializable {
