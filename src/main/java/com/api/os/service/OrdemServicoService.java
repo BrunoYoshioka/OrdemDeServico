@@ -2,10 +2,12 @@ package com.api.os.service;
 
 import com.api.os.dominios.OrdemServico;
 import com.api.os.repository.OrdemServicoRepository;
+import com.api.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class OrdemServicoService {
@@ -25,5 +27,12 @@ public class OrdemServicoService {
         obj.setCliente(clienteService.buscar(obj.getCliente().getId())); // usar o id para buscar do banco o cliente
         obj.setFuncionario(funcionarioService.buscar(obj.getFuncionario().getId())); // usar o id para buscar do banco o cliente
         return ordemServicoRepository.save(obj);
+    }
+
+    // Buscar OS por id
+    public OrdemServico find(Integer id){
+        Optional<OrdemServico> obj = ordemServicoRepository.findById(id); // buscar objeto no banco
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id:" + id + ", Tipo: " + OrdemServico.class.getName()));
     }
 }

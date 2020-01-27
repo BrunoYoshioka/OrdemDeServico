@@ -1,6 +1,7 @@
 package com.api.os.dominios;
 
 import com.api.os.service.validation.ClienteAnnotation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class Cliente implements Serializable {
     @Email(message = "Email inválido")
     private String email;
 
+    @JsonIgnore // As Ordems de Serviços do cliente não serão serializados
     @OneToMany(mappedBy = "cliente")
     private List<OrdemServico> ordemServicos = new ArrayList<>();
 
