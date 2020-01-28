@@ -2,6 +2,7 @@ package com.api.os.service;
 
 import com.api.os.dominios.Funcionario;
 import com.api.os.repository.FuncionarioRepository;
+import com.api.os.service.exception.DataIntegrityException;
 import com.api.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,11 @@ public class FuncionarioService {
 
     public void deletar(Integer id){
         Funcionario funcionario = buscar(id);
-        funcionarioRepository.deleteById(id);
+        if(funcionario.getOrdemServicos().isEmpty()){
+            funcionarioRepository.deleteById(id);
+        }
+        else{
+            throw new DataIntegrityException("Não é possível excluir porque há Ordens de Serviços");
+        }
     }
 }
