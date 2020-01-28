@@ -2,6 +2,7 @@ package com.api.os.service;
 
 import com.api.os.dominios.Cliente;
 import com.api.os.repository.ClienteRepository;
+import com.api.os.service.exception.DataIntegrityException;
 import com.api.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,11 @@ public class ClienteService {
     // Excluir cliente
     public void deletar(Integer id){
         Cliente cliente = buscar(id);
-        clienteRepository.deleteById(id);
+        if(cliente.getOrdemServicos().isEmpty()) {
+            clienteRepository.deleteById(id);
+        }
+        else {
+            throw new DataIntegrityException("Não é possível excluir porque há Ordens de Serviços relacionadas");
+        }
     }
 }

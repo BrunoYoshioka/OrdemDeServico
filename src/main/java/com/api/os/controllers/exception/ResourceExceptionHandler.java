@@ -2,6 +2,7 @@ package com.api.os.controllers.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.api.os.service.exception.DataIntegrityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,6 +22,15 @@ public class ResourceExceptionHandler {
 
         StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
+
+    @ExceptionHandler(DataIntegrityException.class) // indicar o tratamento de excessões
+    public ResponseEntity<StandardError> dataIntegrity (DataIntegrityException e, HttpServletRequest request){
+
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(),
+                e.getMessage(), // mensagem de excessão
+                System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class) // indicar o tratamento de excessões
