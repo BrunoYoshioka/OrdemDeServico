@@ -1,6 +1,7 @@
 package com.api.os.service;
 
 import com.api.os.dominios.OrdemServico;
+import com.api.os.enums.StatusOS;
 import com.api.os.repository.OrdemServicoRepository;
 import com.api.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,11 @@ public class OrdemServicoService {
         Optional<OrdemServico> obj = ordemServicoRepository.findById(id); // buscar objeto no banco
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id:" + id + ", Tipo: " + OrdemServico.class.getName()));
+    }
+
+    public void updateStatus (Integer id, StatusOS statusOS){
+        OrdemServico ordemServico = find(id);
+        ordemServico.setStatusOS(statusOS);
+        ordemServicoRepository.save(ordemServico);
     }
 }

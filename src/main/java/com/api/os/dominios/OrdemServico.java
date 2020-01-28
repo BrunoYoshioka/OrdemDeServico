@@ -1,10 +1,9 @@
 package com.api.os.dominios;
 
+import com.api.os.enums.StatusOS;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -46,6 +45,10 @@ public class OrdemServico implements Serializable {
 
     @NotNull(message = "Preenchimento Obrigatório")
     private Double valor;
+
+    @NotNull(message = "Preenchimento Obrigatório")
+    @Enumerated(EnumType.STRING)
+    private StatusOS statusOS;
 
     public OrdemServico(){}
 

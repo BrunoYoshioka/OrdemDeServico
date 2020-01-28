@@ -1,6 +1,7 @@
 package com.api.os.controllers;
 
 import com.api.os.dominios.OrdemServico;
+import com.api.os.enums.StatusOS;
 import com.api.os.repository.OrdemServicoRepository;
 import com.api.os.service.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,12 @@ public class OrdemServicoController {
     public ResponseEntity<?> buscar (@PathVariable Integer id){
         OrdemServico obj = ordemServicoService.find(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    // Alterar Status
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Void> atualizarStatus (@PathVariable Integer id, @RequestBody StatusOS statusOS){
+        ordemServicoService.updateStatus(id, statusOS);
+        return ResponseEntity.noContent().build();
     }
 }
