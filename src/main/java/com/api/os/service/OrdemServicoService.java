@@ -24,9 +24,7 @@ public class OrdemServicoService {
     // Inserir uma OS
     public OrdemServico insert(OrdemServico obj){
         obj.setId(null); // para que seja realmente nova OS
-        obj.setDataOs(new Date()); // cria uma nova data atual do pedido
-        obj.setCliente(clienteService.buscar(obj.getCliente().getId())); // usar o id para buscar do banco o cliente
-        obj.setFuncionario(funcionarioService.buscar(obj.getFuncionario().getId())); // usar o id para buscar do banco o cliente
+        //obj.setDataOs(new Date()); // cria uma nova data atual do pedido
         return ordemServicoRepository.save(obj);
     }
 
@@ -37,9 +35,9 @@ public class OrdemServicoService {
                 "Objeto não encontrado! Id:" + id + ", Tipo: " + OrdemServico.class.getName()));
     }
 
-    public void updateStatus (Integer id, StatusOS statusOS){
+    public void updateStatus (Integer id, OrdemServico os){
         OrdemServico ordemServico = find(id);
-        ordemServico.setStatusOS(statusOS);
+        ordemServico.setStatus(os.getStatus());
         ordemServicoRepository.save(ordemServico);
     }
 }

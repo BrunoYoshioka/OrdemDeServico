@@ -1,8 +1,9 @@
 package com.api.os.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum StatusOS {
     ANDAMENTO(1, "EM ANDAMENTO"),
     FINALIZADO(2, "FINALIZADO"),

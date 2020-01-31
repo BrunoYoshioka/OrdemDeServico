@@ -52,8 +52,8 @@ public class OrdemServicoController {
 
     // Alterar Status
     @PutMapping("/{id}/status")
-    public ResponseEntity<Void> atualizarStatus (@PathVariable Integer id, @RequestBody StatusOS statusOS){
-        ordemServicoService.updateStatus(id, statusOS);
+    public ResponseEntity<Void> atualizarStatus (@PathVariable Integer id, @RequestBody OrdemServico os){
+        ordemServicoService.updateStatus(id, os);
         return ResponseEntity.noContent().build();
     }
 }

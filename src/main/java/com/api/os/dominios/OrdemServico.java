@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -22,8 +23,8 @@ public class OrdemServico implements Serializable {
     @NotNull(message = "Preenchimento Obrigatório")
     private String serie;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private Date dataOs;
+    //@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataOs = LocalDateTime.now();
 
     @ManyToOne @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -48,7 +49,7 @@ public class OrdemServico implements Serializable {
 
     @NotNull(message = "Preenchimento Obrigatório")
     @Enumerated(EnumType.STRING)
-    private StatusOS statusOS;
+    private StatusOS status;
 
     public OrdemServico(){}
 
