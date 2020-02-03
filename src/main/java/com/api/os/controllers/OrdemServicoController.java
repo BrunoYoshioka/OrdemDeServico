@@ -2,6 +2,7 @@ package com.api.os.controllers;
 
 import com.api.os.dominios.OrdemServico;
 import com.api.os.enums.StatusOS;
+import com.api.os.jms.EnviarOsJms;
 import com.api.os.repository.OrdemServicoRepository;
 import com.api.os.service.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,12 @@ public class OrdemServicoController {
     @Autowired
     private OrdemServicoRepository ordemServicoRepository;
 
+    @Autowired
+    private EnviarOsJms enviarOsJms;
+
     // Operação Inserir OS
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> inserir(@Valid @RequestBody OrdemServico obj){
+    public ResponseEntity<OrdemServico> inserir(@Valid @RequestBody OrdemServico obj){
         obj = ordemServicoService.insert(obj); // obj recebe um serviço onde insere a nova categoria no banco.
         // pegar o novo id e fornecer como argumento da URI
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest() // pegar URI

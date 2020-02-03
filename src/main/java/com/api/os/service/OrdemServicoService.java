@@ -6,6 +6,7 @@ import com.api.os.repository.OrdemServicoRepository;
 import com.api.os.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.jms.core.JmsTemplate;
 
 import java.util.Date;
 import java.util.Optional;
@@ -21,11 +22,15 @@ public class OrdemServicoService {
     @Autowired
     private FuncionarioService funcionarioService;
 
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
     // Inserir uma OS
     public OrdemServico insert(OrdemServico obj){
         obj.setId(null); // para que seja realmente nova OS
-        //obj.setDataOs(new Date()); // cria uma nova data atual do pedido
-        return ordemServicoRepository.save(obj);
+        OrdemServico ordemServico = ordemServicoRepository.save(obj);
+        jmsTemplate.convertAndSend("osQueue", obj);
+        return ordemServico;
     }
 
     // Buscar OS por id
